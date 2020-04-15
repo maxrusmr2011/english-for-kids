@@ -2,51 +2,53 @@ export class Menu {
   constructor() {
     this.showMenu = false;
   }
+
   active(activation) {
     this.showMenu = arguments.length ? activation : !this.showMenu;
-    // console.log(3, activation, this.showMenu);
     if (this.showMenu) {
-      document.querySelector('.burger').classList.add('burger-active');
-      document.querySelector('.nav').classList.add('nav-active');
-      document.body.classList.add('stop-scroll');
-  
+      document.body.classList.add('menu-activated');
+      document.onmousedown = (event) => {
+        if (event.screenX > 300) {
+          this.active(false);
+        }
+      };
     } else {
-      document.querySelector('.burger').classList.remove('burger-active');
-      document.querySelector('.nav').classList.remove('nav-active');
-      document.body.classList.remove('stop-scroll');
+      document.body.classList.remove('menu-activated');
+      document.onmousedown = null;
     }
   }
 
   changeItemMenu(elSelect) {
-    alert('menu');
-      
-    document.querySelectorAll('.nav__link').forEach((el) => {
-      if (el === elSelect) {
-        el.classList.add('nav__link-active');
-      } else {
-        el.classList.remove('nav__link-active');
-      }
+    document.querySelectorAll('.nav__link').forEach((itemMenu) => {
+        itemMenu.classList.remove('nav__link-active');
     });
-
+    elSelect.classList.add('nav__link-active');
+    this.active(false);
+    switch (elSelect.id) {
+      case 'page-1':
+        console.log('page-1');
+        break;
+      case 'page-3':
+        console.log('page-3');
+        break;
+      default:
+        console.log('page-2');      
+    }
   }
 
-
   init() {
-    document.querySelector('.burger').addEventListener('click', (event) => {
+    document.querySelector('.burger').addEventListener('click', () => {
       this.active();
-      // this.active( !event.currentTarget.classList.contains('burger-active') );
     });
 
     document.querySelector('.nav ul').addEventListener('click', (event) => {
-      if(event.target.classList.contains('nav__link')) {
-        if (event.target.classList.contains('nav__link-active')) {
-          return;
-        }
-        this.changeItemMenu(event.target);
-        }
+      let itemMenu = event.target;
+      if (
+        itemMenu.classList.contains('nav__link') &&
+        !itemMenu.classList.contains('nav__link-active')
+      ) {
+        this.changeItemMenu(itemMenu);
+      }
     });
-
-
   }
-
 }

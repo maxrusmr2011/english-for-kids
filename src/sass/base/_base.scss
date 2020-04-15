@@ -6,13 +6,17 @@
 
 body {
   min-height: 100vh;
-  margin: 5px;
+  // margin: 5px;
+}
+
+.menu-activated {
+  overflow: hidden;
 }
 
 ul {
   list-style-type: none;
 }
 
-.stop-scroll {
-  overflow: hidden;
-}
+// .stop-scroll {
+//   overflow: hidden;
+// }

@@ -13,10 +13,12 @@
   left: -300px;
   transition: 0.3s;
 }
-.nav-active  {
+// .nav-active  {
+//   left: 0;
+// }
+.menu-activated .nav  {
   left: 0;
 }
-
 .nav ul {
   width: 250px;
   padding: 50px 0;
