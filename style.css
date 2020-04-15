@@ -6,15 +6,14 @@
 
 body {
   min-height: 100vh;
-  margin: 5px;
+}
+
+.menu-activated {
+  overflow: hidden;
 }
 
 ul {
   list-style-type: none;
-}
-
-.stop-scroll {
-  overflow: hidden;
 }
 
 .header {
@@ -50,14 +49,14 @@ ul {
   transform-origin: 16px, 0;
 }
 
-.burger-active div {
+.menu-activated .burger div {
   opacity: 0;
 }
-.burger-active::before {
+.menu-activated .burger::before {
   top: 10px;
   transform: rotate(45deg);
 }
-.burger-active::after {
+.menu-activated .burger::after {
   top: -10px;
   transform: rotate(-45deg);
 }
@@ -146,7 +145,7 @@ ul {
   transition: 0.3s;
 }
 
-.nav-active {
+.menu-activated .nav {
   left: 0;
 }
 
