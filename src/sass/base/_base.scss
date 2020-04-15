@@ -6,11 +6,16 @@
 
 body {
   min-height: 100vh;
-  // margin: 5px;
+  background: rgb(239, 253, 224);
+  transition: 0.5s;
 }
 
 .menu-activated {
   overflow: hidden;
+}
+
+.mode-play {
+  background: rgb(248, 240, 209);
 }
 
 ul {

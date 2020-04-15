@@ -1,3 +1,4 @@
+import { CARDS } from './constants';
 export class Menu {
   constructor() {
     this.showMenu = false;
@@ -7,8 +8,8 @@ export class Menu {
     this.showMenu = arguments.length ? activation : !this.showMenu;
     if (this.showMenu) {
       document.body.classList.add('menu-activated');
-      document.onmousedown = (event) => {
-        if (event.screenX > 300) {
+      document.onmousedown = (event) => {       
+        if (event.clientX > 300) {
           this.active(false);
         }
       };
@@ -40,8 +41,8 @@ export class Menu {
     document.querySelector('.burger').addEventListener('click', () => {
       this.active();
     });
-
-    document.querySelector('.nav ul').addEventListener('click', (event) => {
+    let menuContainer = document.querySelector('.nav ul');
+    menuContainer.addEventListener('click', (event) => {
       let itemMenu = event.target;
       if (
         itemMenu.classList.contains('nav__link') &&
@@ -50,5 +51,18 @@ export class Menu {
         this.changeItemMenu(itemMenu);
       }
     });
+    menuContainer.firstElementChild.after(...this.addItemMenu());
+
+
+  }
+
+  addItemMenu() {
+    let arrItemMenu = CARDS.map((item, i) => {
+      let itemMenu = document.createElement('li');
+      itemMenu.classList.add('nav__item');
+      itemMenu.innerHTML = `<a id="${'category-' + i}" class="nav__link" href="#">${item.name}</a>`;
+      return itemMenu;
+    });
+    return arrItemMenu;
   }
 }

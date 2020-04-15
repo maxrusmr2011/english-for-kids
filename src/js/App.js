@@ -13,7 +13,7 @@ export class App {
   init() {
     this.menu.init();
     this.switch.init();
-    this.page.itit();
+    this.page.init();
   }
   render() {
     console.log('app');

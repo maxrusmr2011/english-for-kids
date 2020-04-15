@@ -1,4 +1,4 @@
-import { DATA_CARDS } from './constants';
+import { CARDS } from './constants';
 import { Card } from './Card';
 
 export class Page {
@@ -12,6 +12,15 @@ export class Page {
   formPage (page) {
     let container = document.querySelector('.container');
     container.innerHTML = '';
+    console.log(CARDS);
+    // categories
+    let arrCards = CARDS.map((itemCategory) => {
+      let card = (new Card(page, itemCategory)).render();
+      return card;
+    });
+    container.append(...arrCards);
+
+    
     // switch(page) {
     //   case 1:
     //   case 3:

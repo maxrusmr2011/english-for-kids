@@ -1,0 +1,39 @@
+.category {
+  width: 300px;
+  height: 280px;
+  margin: 20px 25px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid black;
+  background: yellowgreen;
+  transition: 0.5s;
+  transition-property: box-shadow, background-color;
+  cursor: pointer;
+  img {
+    $img-size: 180px;
+    display: block;
+    width: $img-size;
+    height: $img-size;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 20px auto;
+    border: 10px solid white;
+  }
+  div {
+    position: absolute;
+    width: 100%;
+    padding: 10px;
+    left: 0;
+    bottom: 0;
+    background: white;
+    text-align: center;
+    font-size: 2rem;
+  }
+  &:hover {
+    box-shadow: 0 0 10px 10px #555555;
+  }
+}
+
+.mode-play .category {
+  background: orange;
+}
