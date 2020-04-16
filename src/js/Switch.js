@@ -17,6 +17,7 @@ export class Switch {
       document.body.classList.add('mode-play');
     } else {
       document.body.classList.remove('mode-play');
+      app.stopGame();
     }
   }
 }

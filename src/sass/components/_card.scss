@@ -11,26 +11,27 @@
   transition-property: box-shadow, background-color;
   cursor: pointer;
 
+  img {
+    display: block;
+    object-fit: cover;
+    
+  }
+
   div {
-    position: absolute;
     width: 100%;
     padding: 10px;
-    left: 0;
-    bottom: 0;
     background: white;
     text-align: center;
     font-size: 2rem;
   }
   &:hover {
-    box-shadow: 0 0 10px 10px #888888;
+    box-shadow: 0 0 10px 5px #888888;
   }
 }
 
 .mode-play .card {
   background: $card-color-play;
   border: 3px solid darken($card-color-play, 10%);
-  
-
 }
 
 .mode-play .card-word {
@@ -45,21 +46,20 @@
     display: block;
     width: $img-size;
     height: $img-size;
-    object-fit: cover;
     border-radius: 50%;
     margin: 20px auto;
     border: 10px solid white;
   }
+  div {
+  position: absolute;
+    left: 0;
+    bottom: 0;
+  }
 }
 .card-word {
+  display: flex;
+  flex-direction: column;
   img {
-    $img-size: 100%;
-    display: block;
-    width: $img-size;
-    height: $img-size;
-    object-fit: cover;
-    // border-radius: 50%;
-    // margin: 20px auto;
-    // border: 10px solid white;
+    height: 100%;
   }
 }

@@ -1,4 +1,57 @@
 .page {
   max-width: $main_width;
   margin: 0 auto;
+
+  &__title {
+    text-align: center;
+    font-size: 40px;
+    font-weight: 700;
+  }
+  &__stars {
+    min-height: 40px;
+  }
+  &__start {
+    display: none;
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 0 25px;
+
+  }
+}
+
+.mode-play {
+  .page__stars {}
+
+  .page__start {
+    display: block;
+    text-align: center;
+    
+    button {
+      display: inline-block;
+      width: 100%;
+      border: 0;
+      border-radius: 30px;
+      padding: 10px;
+      background: $card-color-play;
+      font-size: 2rem;
+      font-weight: 700;
+      
+      img {
+        display: none;
+      }
+    }
+    .start-game {
+      width: auto;
+      // transition: width 1s;
+      span {
+        display: none;
+      }
+      img {
+        display: block;
+        width: 35px;
+        height: 35px;
+      }
+    }
+  }
+
 }
