@@ -1,24 +1,16 @@
-.category {
+
+.card {
   width: 300px;
   height: 280px;
   margin: 20px 25px;
   position: relative;
   overflow: hidden;
-  border: 1px solid black;
-  background: yellowgreen;
+  border: 3px solid darken($card-color-train, 10%);
+  background: $card-color-train;
   transition: 0.5s;
   transition-property: box-shadow, background-color;
   cursor: pointer;
-  img {
-    $img-size: 180px;
-    display: block;
-    width: $img-size;
-    height: $img-size;
-    object-fit: cover;
-    border-radius: 50%;
-    margin: 20px auto;
-    border: 10px solid white;
-  }
+
   div {
     position: absolute;
     width: 100%;
@@ -30,10 +22,44 @@
     font-size: 2rem;
   }
   &:hover {
-    box-shadow: 0 0 10px 10px #555555;
+    box-shadow: 0 0 10px 10px #888888;
   }
 }
 
-.mode-play .category {
-  background: orange;
+.mode-play .card {
+  background: $card-color-play;
+  border: 3px solid darken($card-color-play, 10%);
+  
+
+}
+
+.mode-play .card-word {
+  div {
+    display: none;
+  }  
+}
+
+.card-category {
+  img {
+    $img-size: 180px;
+    display: block;
+    width: $img-size;
+    height: $img-size;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 20px auto;
+    border: 10px solid white;
+  }
+}
+.card-word {
+  img {
+    $img-size: 100%;
+    display: block;
+    width: $img-size;
+    height: $img-size;
+    object-fit: cover;
+    // border-radius: 50%;
+    // margin: 20px auto;
+    // border: 10px solid white;
+  }
 }

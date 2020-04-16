@@ -1,5 +1,5 @@
 .nav {
-  border: 1px solid black; // del
+  border-right: 3px solid darken($card-color-train, 10%);
   position: fixed;
   z-index: 1;
   top: 0;
@@ -10,9 +10,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
-  background: #eeeeee;
+  background: lighten($card-color-train, 20%);
   left: -300px;
   transition: 0.3s;
+}
+
+.mode-play .nav {
+  background: lighten($card-color-play, 20%);
+  border-right: 3px solid darken($card-color-play, 10%);
 }
 // .nav-active  {
 //   left: 0;
@@ -40,10 +45,10 @@
   }
   &:link,
   &:visited {
-    color: green;
+    color: $menu-color-text;
   }
   &.nav__link-active {
-    color: red;
-    text-shadow: 1px -1px 1px yellow;
+    color: $menu-color-text-active;
+    text-shadow: 1px -1px 1px $menu-color-text-active-shadow;
   }
 }
