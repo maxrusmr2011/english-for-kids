@@ -9,16 +9,28 @@ export class Page {
     this.formPage(this.pageNumber);
   }
 
-  formPage (page) {
+  formPage (page, category) {
     let container = document.querySelector('.container');
     container.innerHTML = '';
     console.log(CARDS);
     // categories
-    let arrCards = CARDS.map((itemCategory) => {
-      let card = (new Card(page, itemCategory)).render();
-      return card;
-    });
-    container.append(...arrCards);
+    if (page === 1) {
+      let arrCards = CARDS.map((itemCategory) => {
+        let card = (new Card(page, itemCategory)).render();
+        return card;
+      });
+      container.append(...arrCards);      
+    } else if (page === 2) {
+     // cards     
+      let arrCards = CARDS[category].listCards.map((itemWord) => {
+        let card = (new Card(page, itemWord)).render();
+        return card;
+      });
+      container.append(...arrCards);      
+    }
+
+
+  
 
     
     // switch(page) {
@@ -29,7 +41,5 @@ export class Page {
     // }
   }
 
-  changePage(newPageNumber) {
 
-  }
 }

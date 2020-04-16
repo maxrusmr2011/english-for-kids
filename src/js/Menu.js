@@ -5,17 +5,19 @@ export class Menu {
   }
 
   active(activation) {
+    const WIDTH_MENU = 300;
     this.showMenu = arguments.length ? activation : !this.showMenu;
     if (this.showMenu) {
       document.body.classList.add('menu-activated');
-      document.onmousedown = (event) => {       
-        if (event.clientX > 300) {
+      document.onclick = (event) => {       
+        if (event.clientX > WIDTH_MENU) {
           this.active(false);
+          // event.stopPropagation();
         }
       };
     } else {
       document.body.classList.remove('menu-activated');
-      document.onmousedown = null;
+      document.onclick = null;
     }
   }
 
@@ -28,17 +30,22 @@ export class Menu {
     switch (elSelect.id) {
       case 'page-1':
         console.log('page-1');
+        app.page.formPage(1);
         break;
       case 'page-3':
         console.log('page-3');
         break;
       default:
-        console.log('page-2');      
+        console.log('page-2');
+        console.log(window.app);
+        
+        window.app.page.formPage(2, Number(elSelect.id.slice(9)));
     }
   }
 
   init() {
-    document.querySelector('.burger').addEventListener('click', () => {
+    document.querySelector('.burger').addEventListener('click', (event) => {
+      event.stopPropagation();
       this.active();
     });
     let menuContainer = document.querySelector('.nav ul');
