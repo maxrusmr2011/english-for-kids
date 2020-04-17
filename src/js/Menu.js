@@ -32,16 +32,12 @@ export class Menu {
     this.active(false);
     switch (elSelect.id) {
       case 'page-1':
-        console.log('page-1');
         app.page.formPage(1);
         break;
-        case 'page-3':
-          console.log('page-3');
-          app.page.formPage(3);
+      case 'page-3':
+        app.page.formPage(3);
         break;
       default:
-        console.log('page-2');
-        // console.log(window.app);
         app.page.formPage(2, Number(elSelect.id.slice(9)));
     }
   }

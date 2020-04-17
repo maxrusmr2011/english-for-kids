@@ -1,5 +1,3 @@
-export let statistic = {};
-
 export const CARDS = [ 
   {name: 'Action (set A)', listCards: [
     {

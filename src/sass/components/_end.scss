@@ -5,10 +5,17 @@
   left: 0;
   top: 0;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background: #ffffff;
   z-index: 5;
+  div {
+    margin-bottom: 30px;
+    font-size: 50px;
+    font-weight: 700;
+    color: orange;
+  }
   img {
     width: 60%;
     height: 60%;

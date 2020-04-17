@@ -1,5 +1,6 @@
 // import { CARDS } from './constants';
 import { Card } from './Card';
+import { Table } from './Table';
 
 export class Page {
   constructor() {
@@ -18,13 +19,56 @@ export class Page {
     app.stopGame();
     let pageElement = document.querySelector('.page');
     pageElement.innerHTML = '';
-    switch (page) {
-      case 3:
-        console.log('page3');
-        break;
-      case 2:
-        let add = this.formAddPage2();
-      default:
+
+    
+    if (page === 3) {
+      // category - sortOf
+      if (!category) {
+        app.createTempStatistic();
+      } else {
+        app.sortStatistic(category);
+        // sorts {name: train:}
+      }
+        console.log(app.saveTemp);
+        let container = document.createElement('div');
+        container.classList.add('container-table');
+        let table = document.createElement('table');
+        table.append(new Table().top());
+        app.saveTemp.forEach((item) => {
+            table.append(new Table(item).render());
+        });
+
+        const title = document.createElement('div');
+        title.classList.add('page__title')
+        title.textContent = 'Statistic';
+    
+        let button1 = document.createElement('button');
+        button1.classList.add('button-reset');
+        button1.textContent = 'Reset statistic';
+        button1.onclick = (event) => {
+          app.nullStatistic();
+          app.menu.changeItemMenu(0);
+        };
+
+        let button2 = document.createElement('button');
+        button2.classList.add('button-reset');
+        button2.textContent = 'Repeat difficult words';
+        button2.onclick = (event) => {
+          //
+        };
+
+        const buttons = document.createElement('div');
+        buttons.classList.add('page__buttons');
+        buttons.append(button1, button2);
+
+        container.append(title, buttons, table);
+        pageElement.append(container);
+
+
+
+
+
+    } else {
       let container = document.createElement('div');
       container.classList.add('container', 'layout-flex');
       container.onclick = (event) => {
@@ -36,9 +80,11 @@ export class Page {
         return card;
       });
       container.append(...arrCards);
+
       if(page === 1) {
         pageElement.append(container);
       } else {
+        let add = this.formAddPage2();
         pageElement.append(add.title, add.stars, container, add.start);
       }
     }

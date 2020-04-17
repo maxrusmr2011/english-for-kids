@@ -26,7 +26,5 @@ export class Card {
       return card;
   }
 
-  formCard () {}
 
-  changeCard() {}
 }
