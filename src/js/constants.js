@@ -51,7 +51,8 @@ const CARDS = [
         audioSrc: 'audio/jump.mp3',
       },
     ],
-  }, {
+  },
+  {
     name: 'Action (set B)',
     listCards: [
       {
@@ -103,7 +104,8 @@ const CARDS = [
         audioSrc: 'audio/swim.mp3',
       },
     ],
-  }, {
+  },
+  {
     name: 'Animal (set A)',
     listCards: [
       {
@@ -155,7 +157,8 @@ const CARDS = [
         audioSrc: 'audio/sheep.mp3',
       },
     ],
-  }, {
+  },
+  {
     name: 'Animal (set B)',
     listCards: [
       {
@@ -207,7 +210,8 @@ const CARDS = [
         audioSrc: 'audio/dolphin.mp3',
       },
     ],
-  }, {
+  },
+  {
     name: 'Clothes',
     listCards: [
       {
@@ -259,7 +263,8 @@ const CARDS = [
         audioSrc: 'audio/shoe.mp3',
       },
     ],
-  }, {
+  },
+  {
     name: 'Emotions',
     listCards: [
       {
@@ -309,6 +314,112 @@ const CARDS = [
         translation: 'смех',
         image: 'img/laugh.jpg',
         audioSrc: 'audio/laugh.mp3',
+      },
+    ],
+  },
+  {
+    name: 'Fruit',
+    listCards: [
+      {
+        word: 'apple',
+        translation: 'яблоко',
+        image: 'img/apple.jpg',
+        audioSrc: 'audio/apple.mp3',
+      },
+      {
+        word: 'cherry',
+        translation: 'вишня',
+        image: 'img/cherry.jpg',
+        audioSrc: 'audio/cherry.mp3',
+      },
+      {
+        word: 'orange',
+        translation: 'апельсин',
+        image: 'img/orange.jpg',
+        audioSrc: 'audio/orange.mp3',
+      },
+      {
+        word: 'apricot',
+        translation: 'абрикос',
+        image: 'img/apricot.jpg',
+        audioSrc: 'audio/apricot.mp3',
+      },
+      {
+        word: 'plum',
+        translation: 'слива',
+        image: 'img/plum.jpg',
+        audioSrc: 'audio/plum.mp3',
+      },
+      {
+        word: 'strawberry',
+        translation: 'клубника',
+        image: 'img/strawberry.jpg',
+        audioSrc: 'audio/strawberry.mp3',
+      },
+      {
+        word: 'banana',
+        translation: 'банан',
+        image: 'img/banana.jpg',
+        audioSrc: 'audio/banana.mp3',
+      },
+      {
+        word: 'watermelon',
+        translation: 'арбуз',
+        image: 'img/watermelon.jpg',
+        audioSrc: 'audio/watermelon.mp3',
+      },
+    ],
+  },
+  {
+    name: 'Home',
+    listCards: [
+      {
+        word: 'table',
+        translation: 'стол',
+        image: 'img/table.png',
+        audioSrc: 'audio/table.mp3',
+      },
+      {
+        word: 'clock',
+        translation: 'часы',
+        image: 'img/clock.jpg',
+        audioSrc: 'audio/clock.mp3',
+      },
+      {
+        word: 'chair',
+        translation: 'стул',
+        image: 'img/chair.jpg',
+        audioSrc: 'audio/chair.mp3',
+      },
+      {
+        word: 'mirror',
+        translation: 'зеркало',
+        image: 'img/mirror.jpg',
+        audioSrc: 'audio/mirror.mp3',
+      },
+      {
+        word: 'bed',
+        translation: 'кровать',
+        image: 'img/bed.jpg',
+        audioSrc: 'audio/bed.mp3',
+      },
+      {
+        word: 'door',
+        translation: 'дверь',
+        image: 'img/door.jpg',
+        audioSrc: 'audio/door.mp3',
+      },
+      {
+        word: 'carpet',
+        translation: 'ковёр',
+        image: 'img/carpet.jpg',
+        audioSrc: 'audio/carpet.mp3',
+      },
+      {
+        word: 'window',
+        translation: 'окно',
+        image: 'img/window.jpg',
+        audioSrc: 'audio/window.mp3',
       },
     ],
   },

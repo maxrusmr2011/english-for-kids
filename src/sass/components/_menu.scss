@@ -5,7 +5,6 @@
   top: 0;
   width: 300px;
   height: 100vh;
-  // padding: 50px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -19,9 +18,6 @@
   background: lighten($card-color-play, 20%);
   border-right: 3px solid darken($card-color-play, 10%);
 }
-// .nav-active  {
-//   left: 0;
-// }
 .menu-activated .nav  {
   left: 0;
 }

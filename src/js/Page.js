@@ -140,9 +140,7 @@ export default class Page {
     if (!e.target.closest('.card')) {
       return;
     }
-    // get card number and element
-    let result; let
-      cardElement;
+    let result; let cardElement;
     [...e.currentTarget.children].forEach((itemCard, i) => {
       if (itemCard.contains(e.target)) {
         cardElement = itemCard;

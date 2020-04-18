@@ -1,10 +1,8 @@
-// abstracts - scss-константы, миксины, плейсхолдеры
 @import "./abstract/variables";
 
-// base - основные настройки (размеры экрана, шрифты, инпуты, анимации)
+@import "./base/fonts";
 @import "./base/base";
 
-// components - блоки по БЭМ, кнопки
 @import "./components/header";
 @import "./components/main";
 @import "./components/burger";
@@ -13,8 +11,4 @@
 @import "./components/card";
 @import "./components/end";
 
-// layout - настройка колонок, header, footer, сеток, формы
 @import "./layout/layout";
-// pages - основная разметка каждой страницы (если они различны)
-
-// themes - разные темы (если есть: светлая/темная, user/admin)
