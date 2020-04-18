@@ -1,4 +1,4 @@
-export class Menu {
+export default class Menu {
   constructor() {
     this.showMenu = false;
   }
@@ -20,23 +20,26 @@ export class Menu {
   }
 
   changeItemMenu(elSelect) {
+    let elSelectNew;
     if (typeof elSelect === 'number') {
-      elSelect = document.querySelectorAll('.nav__link')[elSelect];
+      elSelectNew = document.querySelectorAll('.nav__link')[elSelect];
+    } else {
+      elSelectNew = elSelect;
     }
     document.querySelectorAll('.nav__link').forEach((itemMenu) => {
       itemMenu.classList.remove('nav__link-active');
     });
-    elSelect.classList.add('nav__link-active');
+    elSelectNew.classList.add('nav__link-active');
     this.active(false);
-    switch (elSelect.id) {
+    switch (elSelectNew.id) {
       case 'page-1':
-        app.page.formPage(1);
+        window.app.page.formPage(1);
         break;
       case 'page-3':
-        app.page.formPage(3);
+        window.app.page.formPage(3);
         break;
       default:
-        app.page.formPage(2, Number(elSelect.id.slice(9)));
+        window.app.page.formPage(2, Number(elSelectNew.id.slice(9)));
     }
   }
 
@@ -45,12 +48,12 @@ export class Menu {
       event.stopPropagation();
       this.active();
     });
-    let menuContainer = document.querySelector('.nav ul');
+    const menuContainer = document.querySelector('.nav ul');
     menuContainer.addEventListener('click', (event) => {
-      let itemMenu = event.target;
+      const itemMenu = event.target;
       if (
-        itemMenu.classList.contains('nav__link') &&
-        !itemMenu.classList.contains('nav__link-active')
+        itemMenu.classList.contains('nav__link')
+        && !itemMenu.classList.contains('nav__link-active')
       ) {
         this.changeItemMenu(itemMenu);
       }
@@ -59,11 +62,11 @@ export class Menu {
   }
 
   addItemMenu() {
-    let arrItemMenu = app.CARDS.map((item, i) => {
-      let itemMenu = document.createElement('li');
+    const arrItemMenu = window.app.CARDS.map((item, i) => {
+      const itemMenu = document.createElement('li');
       itemMenu.classList.add('nav__item');
       itemMenu.innerHTML = `<a id="${
-        'category-' + i
+        `category-${i}`
       }" class="nav__link" href="#">${item.name}</a>`;
       return itemMenu;
     });

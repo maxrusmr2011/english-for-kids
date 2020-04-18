@@ -7,7 +7,9 @@
     "css": "sass src/sass/style.scss style.css",
     "css-w": "sass --watch src/sass/style.scss style.css",
     "dev": "webpack --mode development",
-    "prod": "webpack --mode production"
+    "prod": "webpack --mode production",
+    "lint": "eslint ./src",
+    "lint-f": "eslint ./src --fix"
   },
   "repository": {
     "type": "git",
@@ -25,6 +27,9 @@
     "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.5.2",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-plugin-import": "^2.20.2",
     "file-loader": "^6.0.0",
     "html-loader": "^1.1.0",
     "html-webpack-plugin": "^4.2.0",

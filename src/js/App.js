@@ -1,9 +1,9 @@
-import { Menu } from './Menu';
-import { Switch } from './Switch';
-import { Page } from './Page';
-import { CARDS } from './constants';
+import CARDS from './constants';
+import Menu from './Menu';
+import Switch from './Switch';
+import Page from './Page';
 
-export class App {
+export default class App {
   constructor() {
     this.CARDS = CARDS;
     this.menu = new Menu();
@@ -29,39 +29,35 @@ export class App {
   }
 
   createStatistic() {
-    if (localStorage['save']) {
-      this.save = JSON.parse(localStorage['save']);
+    if (localStorage.save) {
+      this.save = JSON.parse(localStorage.save);
     } else {
       this.nullStatistic();
     }
   }
 
   nullStatistic() {
-    this.save = CARDS.map((category) => {
-      return {
-        name: category.name,
-        listCards: category.listCards.map((objWord) => {
-          return {
-            word: objWord.word,
-            translation: objWord.translation,
-            train: 0,
-            success: 0,
-            fail: 0,
-          };
-        }),
-      };
-    });
+    this.save = CARDS.map((category) => ({
+      name: category.name,
+      listCards: category.listCards.map((objWord) => ({
+        word: objWord.word,
+        translation: objWord.translation,
+        train: 0,
+        success: 0,
+        fail: 0,
+      })),
+    }));
     localStorage.removeItem('save');
   }
 
   saveResult(numCategory, numWord, propertyToAdd) {
-    numWord = propertyToAdd === 'fail' ? this.currentWord.index : numWord;
-    this.save[numCategory].listCards[numWord][propertyToAdd] += 1;
+    const numWordNew = propertyToAdd === 'fail' ? this.currentWord.index : numWord;
+    this.save[numCategory].listCards[numWordNew][propertyToAdd] += 1;
   }
 
   createTempStatistic() {
     this.saveTemp = [];
-    app.save.forEach((item, category) => {
+    window.app.save.forEach((item, category) => {
       item.listCards.forEach((itemWord, numWord) => {
         this.saveTemp.push({
           category,
@@ -73,9 +69,8 @@ export class App {
           success: itemWord.success,
           fail: itemWord.fail,
           percentErrors:
-            itemWord.success + itemWord.fail
-              ? Math.floor((itemWord.fail * 1000) / (itemWord.success + itemWord.fail)) / 10
-              : 0,
+            itemWord.success + itemWord.fail ? Math.floor((itemWord.fail * 1000)
+            / (itemWord.success + itemWord.fail)) / 10 : 0,
         });
       });
     });
@@ -83,14 +78,20 @@ export class App {
 
   sortStatistic({ name, dir }) {
     if (dir === 1) {
-      this.saveTemp.sort((a1, a2) => a1[name] > a2[name] ? 1 : a1[name] < a2[name] ? -1 : 0 );
+      this.saveTemp.sort((first, second) => {
+        const tmp = first[name] < second[name] ? -1 : 0;
+        return first[name] > second[name] ? 1 : tmp;
+      });
     } else {
-      this.saveTemp.sort((a2, a1) => a1[name] > a2[name] ? 1 : a1[name] < a2[name] ? -1 : 0 );
+      this.saveTemp.sort((second, first) => {
+        const tmp = first[name] < second[name] ? -1 : 0;
+        return first[name] > second[name] ? 1 : tmp;
+      });
     }
   }
 
   saveStatistic() {
-    localStorage['save'] = JSON.stringify(this.save);
+    localStorage.save = JSON.stringify(this.save);
   }
 
   nullGame() {
@@ -101,7 +102,7 @@ export class App {
   }
 
   stopGame() {
-    let button = document.querySelector('.start-button');
+    const button = document.querySelector('.start-button');
     if (button) {
       button.classList.remove('start-game');
     }
@@ -109,7 +110,7 @@ export class App {
       item.classList.remove('card-success');
     });
 
-    let stars = document.querySelector('.page__stars');
+    const stars = document.querySelector('.page__stars');
     if (stars) {
       stars.innerHTML = '';
     }
@@ -117,19 +118,19 @@ export class App {
   }
 
   startGame() {
+    const arr = this.page.currentPageNumber === 4 ? this.arrRepeatWords
+      : CARDS[this.page.currentCategory].listCards;
     this.game.startedGame = true;
-    let arr = this.page.currentPageNumber === 4 ? this.arrRepeatWords 
-    : CARDS[this.page.currentCategory].listCards;
-    this.words = arr.map((item, i) => {
-      return { index: i, audio: item.audioSrc };
-    });
+    this.words = arr.map((item, i) => ({ index: i, audio: item.audioSrc }));
     this.nextWord();
   }
 
   nextWord() {
+    const LENGTH_1 = 1;
+    const FIRST_INDEX = 0;
     if (this.words.length) {
-      let randomIndex = Math.floor(Math.random() * this.words.length);
-      this.currentWord = this.words.splice(randomIndex, 1)[0];
+      const randomIndex = Math.floor(Math.random() * this.words.length);
+      this.currentWord = this.words.splice(randomIndex, LENGTH_1)[FIRST_INDEX];
       this.soundCurrentWord();
     } else {
       this.saveStatistic();
@@ -151,12 +152,9 @@ export class App {
   }
 
   showEndGame(src) {
-    let screen = document.createElement('div');
+    const screen = document.createElement('div');
     screen.id = 'show';
-    let errors = this.listSteps.reduce(
-      (sum, item) => (item ? sum : sum + 1),
-      0
-    );
+    let errors = this.listSteps.reduce((sum, item) => (item ? sum : sum + 1), 0);
     errors = errors ? `<div>Errors : ${errors}</div>` : '';
     screen.innerHTML = `${errors}<img src="./src/assets/${src}" alt="">`;
     document.body.append(screen);
@@ -172,20 +170,21 @@ export class App {
   }
 
   sound(src) {
-    let objAudio = new Audio('./src/assets/' + src);
+    const objAudio = new Audio(`./src/assets/${src}`);
     objAudio.play();
   }
 
   checkWord(numberWord) {
-    let resultChecked = numberWord === this.currentWord.index;
+    const resultChecked = numberWord === this.currentWord.index;
     this.listSteps.push(resultChecked);
     this.addStar(resultChecked);
     return resultChecked;
   }
 
   addStar(success) {
-    let img = document.createElement('img');
-    img.src = `./src/assets/img/system/${success ? 'star-win' : 'star'}.svg`;
+    const img = document.createElement('img');
+    const successNew = success ? 'star-win' : 'star';
+    img.src = `./src/assets/img/system/${successNew}.svg`;
     document.querySelector('.page__stars').append(img);
   }
 

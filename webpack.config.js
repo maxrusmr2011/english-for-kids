@@ -9,12 +9,12 @@ module.exports = (env, options) => {
     devtool: isProduction ? 'none' : 'source-map',
     watch: !isProduction,
     resolve: {
-      extensions: ['.js']
+      extensions: ['.js'],
     },
     entry: './src/index.js',
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: 'script.js'
+      filename: 'script.js',
     },
     module: {
       rules: [
@@ -24,30 +24,15 @@ module.exports = (env, options) => {
           use: {
             loader: 'babel-loader',
             options: {
-              presets: ['@babel/preset-env']
-            }
-          }
-        }
-      ]
+              presets: ['@babel/preset-env'],
+            },
+          },
+        },
+      ],
     },
     plugins: [
-      new CleanWebpackPlugin()
-    ]
+      new CleanWebpackPlugin(),
+    ],
   };
-  
   return config;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+};

@@ -1,13 +1,12 @@
-export class Table {
+export default class Table {
   constructor(dataRow) {
     this.dataRow = dataRow;
   }
 
   render() {
-    let addButtons =
-      '<div><button class="btn btn-up">▲</button><button class="btn btn-down">▼</button></div>';
-    let row = document.createElement('tr');
-    let propName = [
+    const addButtons = '<div><button class="btn btn-up">▲</button><button class="btn btn-down">▼</button></div>';
+    const row = document.createElement('tr');
+    const propName = [
       'name',
       'word',
       'translation',
@@ -16,7 +15,7 @@ export class Table {
       'fail',
       'percentErrors',
     ];
-    let topName = [
+    const topName = [
       '№',
       'Category',
       'Word',
@@ -26,8 +25,8 @@ export class Table {
       'Fail answers',
       'Percents of errors',
     ];
-    for (let i = 0; i < 8; i++) {
-      let td = document.createElement('td');
+    for (let i = 0; i < 8; i += 1) {
+      const td = document.createElement('td');
       if (this.dataRow) {
         if (i) {
           td.textContent = this.dataRow[propName[i - 1]];
@@ -35,12 +34,12 @@ export class Table {
       } else {
         td.innerHTML = i ? `<div>${topName[i]}</div>${addButtons}` : topName[i];
         if (i) {
-          let btn = td.querySelectorAll('.btn');
+          const btn = td.querySelectorAll('.btn');
           btn[0].onclick = () => {
-            app.page.formPage(3, { name: propName[i - 1], dir: 1 });
+            window.app.page.formPage(3, { name: propName[i - 1], dir: 1 });
           };
           btn[1].onclick = () => {
-            app.page.formPage(3, { name: propName[i - 1], dir: 2 });
+            window.app.page.formPage(3, { name: propName[i - 1], dir: 2 });
           };
         }
       }

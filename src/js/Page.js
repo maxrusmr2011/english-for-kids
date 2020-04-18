@@ -1,11 +1,12 @@
-import { Card } from './Card';
-import { Table } from './Table';
+import Card from './Card';
+import Table from './Table';
 
-export class Page {
+export default class Page {
   constructor() {
     this.currentPageNumber = 1;
     this.currentCategory = 0;
   }
+
   init() {
     this.formPage(this.currentPageNumber);
   }
@@ -15,16 +16,16 @@ export class Page {
     if (arguments.length === 2) {
       this.currentCategory = category;
     }
-    app.stopGame();
-    let pageElement = document.querySelector('.page');
+    window.app.stopGame();
+    const pageElement = document.querySelector('.page');
     pageElement.innerHTML = '';
-    let container = document.createElement('div');
+    const container = document.createElement('div');
     let arrToContainer;
     if (this.currentPageNumber === 3) {
       if (!category) {
-        app.createTempStatistic();
+        window.app.createTempStatistic();
       } else {
-        app.sortStatistic(category);
+        window.app.sortStatistic(category);
       }
       container.classList.add('container-table');
       arrToContainer = this.formAddPage3();
@@ -36,58 +37,57 @@ export class Page {
       let arr = [];
       switch (this.currentPageNumber) {
         case 1:
-          arr = app.CARDS;
+          arr = window.app.CARDS;
           break;
         case 2:
-          arr = app.CARDS[category].listCards;
+          arr = window.app.CARDS[category].listCards;
           break;
         default:
-          arr = app.arrRepeatWords;
+          arr = window.app.arrRepeatWords;
       }
       arrToContainer = arr.map((item) => {
-        let card = new Card(item).render();
+        const card = new Card(item).render();
         return card;
       });
     }
 
-      container.append(...arrToContainer);
+    container.append(...arrToContainer);
 
-      if (this.currentPageNumber === 1 || this.currentPageNumber === 3) {
-        pageElement.append(container);
-      } else {
-        let add = this.formAddPage2Page4();
-        pageElement.append(add.title, add.stars, container, add.start);
-      }
-    
+    if (this.currentPageNumber === 1 || this.currentPageNumber === 3) {
+      pageElement.append(container);
+    } else {
+      const add = this.formAddPage2Page4();
+      pageElement.append(add.title, add.stars, container, add.start);
+    }
   }
 
   formAddPage3() {
-    let table = document.createElement('table');
+    const table = document.createElement('table');
     table.append(new Table().render());
-    app.saveTemp.forEach((item) => {
+    window.app.saveTemp.forEach((item) => {
       table.append(new Table(item).render());
     });
 
-    let title = document.createElement('div');
+    const title = document.createElement('div');
     title.classList.add('page__title');
     title.textContent = 'Statistic';
 
-    let button1 = document.createElement('button');
+    const button1 = document.createElement('button');
     button1.classList.add('button-reset');
     button1.textContent = 'Reset statistic';
     button1.onclick = () => {
-      app.nullStatistic();
+      window.app.nullStatistic();
       this.formPage(3);
     };
 
-    let button2 = document.createElement('button');
+    const button2 = document.createElement('button');
     button2.classList.add('button-reset');
     button2.textContent = 'Repeat difficult words';
     button2.onclick = () => {
       this.repeatWord();
     };
 
-    let buttons = document.createElement('div');
+    const buttons = document.createElement('div');
     buttons.classList.add('page__buttons');
     buttons.append(button1, button2);
 
@@ -96,14 +96,14 @@ export class Page {
 
 
   repeatWord() {
-    app.sortStatistic({ name: 'percentErrors', dir: 2 });
-    let countFail = app.saveTemp.findIndex((item) => !item.percentErrors);
+    window.app.sortStatistic({ name: 'percentErrors', dir: 2 });
+    let countFail = window.app.saveTemp.findIndex((item) => !item.percentErrors);
     countFail = countFail !== -1 && countFail <= 8 ? countFail : 8;
-    let arrFailWords = app.saveTemp.slice(0, countFail);
-    let arrRepeatWords = arrFailWords.map(
-      (item) => app.CARDS[item.category].listCards[item.numWord]
+    const arrFailWords = window.app.saveTemp.slice(0, countFail);
+    const arrRepeatWords = arrFailWords.map(
+      (item) => window.app.CARDS[item.category].listCards[item.numWord],
     );
-    app.arrRepeatWords = arrRepeatWords;
+    window.app.arrRepeatWords = arrRepeatWords;
     this.formPage(4);
   }
 
@@ -111,10 +111,9 @@ export class Page {
     const title = document.createElement('div');
     title.classList.add('page__title');
 
-    title.textContent =
-      this.currentPageNumber === 2
-        ? app.CARDS[this.currentCategory].name
-        : 'Repeat difficult words';
+    title.textContent = this.currentPageNumber === 2
+      ? window.app.CARDS[this.currentCategory].name
+      : 'Repeat difficult words';
 
     const stars = document.createElement('div');
     stars.classList.add('page__stars');
@@ -122,18 +121,17 @@ export class Page {
     const start = document.createElement('div');
     start.classList.add('page__start');
 
-    let button = document.createElement('button');
+    const button = document.createElement('button');
     button.classList.add('start-button');
     button.onclick = () => {
-      if (!app.game.startedGame) {
+      if (!window.app.game.startedGame) {
         button.classList.add('start-game');
-        app.startGame();
+        window.app.startGame();
       } else {
-        app.soundCurrentWord();
+        window.app.soundCurrentWord();
       }
     };
-    button.innerHTML =
-      '<span>Start Game</span><img src="./src/assets/img/system/repeat.svg" alt="repeat">';
+    button.innerHTML = '<span>Start Game</span><img src="./src/assets/img/system/repeat.svg" alt="repeat">';
     start.append(button);
     return { title, stars, start };
   }
@@ -143,7 +141,8 @@ export class Page {
       return;
     }
     // get card number and element
-    let result, cardElement;
+    let result; let
+      cardElement;
     [...e.currentTarget.children].forEach((itemCard, i) => {
       if (itemCard.contains(e.target)) {
         cardElement = itemCard;
@@ -151,39 +150,34 @@ export class Page {
       }
     });
     if (this.currentPageNumber === 1) {
-      app.menu.changeItemMenu(result + 1);
-    } else {
-      if (!app.switch.modePlay) {
-        if (e.target.classList.contains('flipper')) {
-          cardElement.classList.add('card-flip');
-          cardElement.onmouseleave = (event) => {
-            event.currentTarget.classList.remove('card-flip');
-            event.currentTarget.onmouseleave = null;
-          };
-        } else {
-          if (this.currentPageNumber === 2) {
-            app.sound(app.CARDS[this.currentCategory].listCards[result].audioSrc);
-            app.saveResult(this.currentCategory, result, 'train');
-          } else {
-            app.sound(app.arrRepeatWords[result].audioSrc);
-          }
-        }
+      window.app.menu.changeItemMenu(result + 1);
+    } else if (!window.app.switch.modePlay) {
+      if (e.target.classList.contains('flipper')) {
+        cardElement.classList.add('card-flip');
+        cardElement.onmouseleave = (event) => {
+          const elem = event.currentTarget;
+          elem.classList.remove('card-flip');
+          elem.onmouseleave = null;
+        };
+      } else if (this.currentPageNumber === 2) {
+        window.app.sound(window.app.CARDS[this.currentCategory].listCards[result].audioSrc);
+        window.app.saveResult(this.currentCategory, result, 'train');
       } else {
-        if (app.game.startedGame && !cardElement.classList.contains('card-success')) {
-          if (app.checkWord(result)) {
-            if (this.currentPageNumber === 2) {
-              app.saveResult(this.currentCategory, result, 'success');
-            }
-            this.markSuccessCard(cardElement);
-            app.sound('audio/system/correct.mp3');
-            app.nextWord();
-          } else {
-            if (this.currentPageNumber === 2) {
-              app.saveResult(this.currentCategory, result, 'fail');
-            }
-            app.sound('audio/system/error.mp3');
-          }
+        window.app.sound(window.app.arrRepeatWords[result].audioSrc);
+      }
+    } else if (window.app.game.startedGame && !cardElement.classList.contains('card-success')) {
+      if (window.app.checkWord(result)) {
+        if (this.currentPageNumber === 2) {
+          window.app.saveResult(this.currentCategory, result, 'success');
         }
+        this.markSuccessCard(cardElement);
+        window.app.sound('audio/system/correct.mp3');
+        window.app.nextWord();
+      } else {
+        if (this.currentPageNumber === 2) {
+          window.app.saveResult(this.currentCategory, result, 'fail');
+        }
+        window.app.sound('audio/system/error.mp3');
       }
     }
   }
