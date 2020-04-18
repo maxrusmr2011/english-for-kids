@@ -12,7 +12,6 @@ export class Switch {
   }
 
   show() {
-    // console.log('play =',this.modePlay);
     if (this.modePlay) {
       document.body.classList.add('mode-play');
     } else {

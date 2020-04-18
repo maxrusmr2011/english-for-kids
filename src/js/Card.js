@@ -8,7 +8,8 @@ export class Card {
       card.classList.add('card', this.page === 1 ? 'card-category' : 'card-word')
       if (this.page === 1) {
         card.innerHTML = `<img src="${'./src/assets/' + this.data.listCards[0].image}" alt=""><div class="card__text">${this.data.name}</div>`;
-      } else if (this.page === 2) {
+      // } else if (this.page === 2) {
+      } else {
         let front = document.createElement('div');
         front.classList.add('card__front')
         let back = document.createElement('div');

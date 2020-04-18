@@ -16,6 +16,7 @@ export class App {
     this.listSteps = [];
     this.save = [];
     this.saveTemp = [];
+    this.arrRepeatWords = [];
   }
 
   init() {
@@ -27,11 +28,10 @@ export class App {
 
   createStatistic() {
     if (localStorage['save']) {
-      this.save = localStorage['save'];
+      this.save = JSON.parse(localStorage['save']);
     } else {
       this.nullStatistic();
     }
-    console.log('stat', this.save);
   }
 
   nullStatistic() {
@@ -67,9 +67,11 @@ export class App {
 
   createTempStatistic() {
     this.saveTemp = [];
-    app.save.forEach((item) => {
-      item.listCards.forEach((itemWord) => {
+    app.save.forEach((item, category) => {
+      item.listCards.forEach((itemWord, numWord) => {
         this.saveTemp.push({
+          category,
+          numWord,
           name: item.name,
           word: itemWord.word,
           translation: itemWord.translation,
@@ -78,7 +80,7 @@ export class App {
           fail: itemWord.fail,
           percentErrors:
             itemWord.success + itemWord.fail
-              ? (itemWord.fail * 100) / (itemWord.success + itemWord.fail)
+              ? Math.floor((itemWord.fail * 1000) / (itemWord.success + itemWord.fail)) / 10
               : 0,
         });
       });
@@ -94,7 +96,7 @@ export class App {
   }
 
   saveStatistic() {
-    this.save = localStorage['save'];
+    localStorage['save'] = JSON.stringify(this.save);
   }
 
   nullGame() {
@@ -123,7 +125,9 @@ export class App {
 
   startGame() {
     this.startedGame = true;
-    this.words = CARDS[this.page.currentCategory].listCards.map((item, i) => {
+    let arr = this.page.currentPageNumber === 4 ? this.arrRepeatWords 
+    : CARDS[this.page.currentCategory].listCards;
+    this.words = arr.map((item, i) => {
       return { index: i, audio: item.audioSrc };
     });
     this.nextWord();
@@ -135,6 +139,7 @@ export class App {
       this.currentWord = this.words.splice(randomIndex, 1)[0];
       this.soundCurrentWord();
     } else {
+      this.saveStatistic();
       setTimeout(() => {
         if (this.checkWin()) {
           this.sound('audio/system/success.mp3');
