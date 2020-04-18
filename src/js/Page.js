@@ -1,4 +1,3 @@
-// import { CARDS } from './constants';
 import { Card } from './Card';
 import { Table } from './Table';
 
@@ -19,55 +18,23 @@ export class Page {
     app.stopGame();
     let pageElement = document.querySelector('.page');
     pageElement.innerHTML = '';
-
-    if (page === 3) {
+    let container = document.createElement('div');
+    let arrToContainer;
+    if (this.currentPageNumber === 3) {
       if (!category) {
         app.createTempStatistic();
       } else {
         app.sortStatistic(category);
       }
-      let container = document.createElement('div');
       container.classList.add('container-table');
-      let table = document.createElement('table');
-      table.append(new Table().top());
-      app.saveTemp.forEach((item) => {
-        table.append(new Table(item).render());
-      });
-
-      const title = document.createElement('div');
-      title.classList.add('page__title');
-      title.textContent = 'Statistic';
-
-      let button1 = document.createElement('button');
-      button1.classList.add('button-reset');
-      button1.textContent = 'Reset statistic';
-      button1.onclick = (event) => {
-        app.nullStatistic();
-        this.formPage(3);
-      };
-
-      let button2 = document.createElement('button');
-      button2.classList.add('button-reset');
-      button2.textContent = 'Repeat difficult words';
-      button2.onclick = (event) => {
-        // Repeat difficult words
-        this.repeatWord();
-      };
-
-      const buttons = document.createElement('div');
-      buttons.classList.add('page__buttons');
-      buttons.append(button1, button2);
-
-      container.append(title, buttons, table);
-      pageElement.append(container);
+      arrToContainer = this.formAddPage3();
     } else {
-      let container = document.createElement('div');
       container.classList.add('container', 'layout-flex');
       container.onclick = (event) => {
         this.handleCard(event);
       };
       let arr = [];
-      switch (page) {
+      switch (this.currentPageNumber) {
         case 1:
           arr = app.CARDS;
           break;
@@ -77,20 +44,56 @@ export class Page {
         default:
           arr = app.arrRepeatWords;
       }
-      let arrCards = arr.map((item) => {
-        let card = new Card(page, item).render();
+      arrToContainer = arr.map((item) => {
+        let card = new Card(item).render();
         return card;
       });
-      container.append(...arrCards);
+    }
 
-      if (page === 1) {
+      container.append(...arrToContainer);
+
+      if (this.currentPageNumber === 1 || this.currentPageNumber === 3) {
         pageElement.append(container);
       } else {
-        let add = this.formAddPage2();
+        let add = this.formAddPage2Page4();
         pageElement.append(add.title, add.stars, container, add.start);
       }
-    }
+    
   }
+
+  formAddPage3() {
+    let table = document.createElement('table');
+    table.append(new Table().render());
+    app.saveTemp.forEach((item) => {
+      table.append(new Table(item).render());
+    });
+
+    let title = document.createElement('div');
+    title.classList.add('page__title');
+    title.textContent = 'Statistic';
+
+    let button1 = document.createElement('button');
+    button1.classList.add('button-reset');
+    button1.textContent = 'Reset statistic';
+    button1.onclick = () => {
+      app.nullStatistic();
+      this.formPage(3);
+    };
+
+    let button2 = document.createElement('button');
+    button2.classList.add('button-reset');
+    button2.textContent = 'Repeat difficult words';
+    button2.onclick = () => {
+      this.repeatWord();
+    };
+
+    let buttons = document.createElement('div');
+    buttons.classList.add('page__buttons');
+    buttons.append(button1, button2);
+
+    return [title, buttons, table];
+  }
+
 
   repeatWord() {
     app.sortStatistic({ name: 'percentErrors', dir: 2 });
@@ -104,7 +107,7 @@ export class Page {
     this.formPage(4);
   }
 
-  formAddPage2() {
+  formAddPage2Page4() {
     const title = document.createElement('div');
     title.classList.add('page__title');
 
@@ -121,8 +124,8 @@ export class Page {
 
     let button = document.createElement('button');
     button.classList.add('start-button');
-    button.onclick = (event) => {
-      if (!app.startedGame) {
+    button.onclick = () => {
+      if (!app.game.startedGame) {
         button.classList.add('start-game');
         app.startGame();
       } else {
@@ -132,7 +135,6 @@ export class Page {
     button.innerHTML =
       '<span>Start Game</span><img src="./src/assets/img/system/repeat.svg" alt="repeat">';
     start.append(button);
-
     return { title, stars, start };
   }
 
@@ -161,31 +163,29 @@ export class Page {
         } else {
           if (this.currentPageNumber === 2) {
             app.sound(app.CARDS[this.currentCategory].listCards[result].audioSrc);
-            app.saveResult(this.currentCategory, result, { train: true });
+            app.saveResult(this.currentCategory, result, 'train');
           } else {
             app.sound(app.arrRepeatWords[result].audioSrc);
           }
         }
       } else {
-        if (app.startedGame && !cardElement.classList.contains('card-success')) {
+        if (app.game.startedGame && !cardElement.classList.contains('card-success')) {
           if (app.checkWord(result)) {
             if (this.currentPageNumber === 2) {
-              app.saveResult(this.currentCategory, result, { success: true });
+              app.saveResult(this.currentCategory, result, 'success');
             }
             this.markSuccessCard(cardElement);
             app.sound('audio/system/correct.mp3');
             app.nextWord();
           } else {
             if (this.currentPageNumber === 2) {
-              app.saveResult(this.currentCategory, result, { fail: true });
+              app.saveResult(this.currentCategory, result, 'fail');
             }
             app.sound('audio/system/error.mp3');
           }
         }
       }
     }
-
-    return;
   }
 
   markSuccessCard(cardEl) {

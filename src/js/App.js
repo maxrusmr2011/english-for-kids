@@ -10,10 +10,12 @@ export class App {
     this.switch = new Switch();
     this.page = new Page();
 
-    this.startedGame = false;
-    this.words = [];
-    this.currentWord = null;
-    this.listSteps = [];
+    this.game = {
+      startedGame: false,
+      words: [],
+      currentWord: null,
+      listSteps: [],
+    };
     this.save = [];
     this.saveTemp = [];
     this.arrRepeatWords = [];
@@ -52,17 +54,9 @@ export class App {
     localStorage.removeItem('save');
   }
 
-  saveResult(numCategory, numWord, { train, success, fail }) {
-    let referSave = this.save[numCategory].listCards[numWord];
-    if (train) {
-      referSave.train += 1;
-    }
-    if (success) {
-      referSave.success += 1;
-    }
-    if (fail) {
-      referSave.fail += 1;
-    }
+  saveResult(numCategory, numWord, propertyToAdd) {
+    numWord = propertyToAdd === 'fail' ? this.currentWord.index : numWord;
+    this.save[numCategory].listCards[numWord][propertyToAdd] += 1;
   }
 
   createTempStatistic() {
@@ -100,7 +94,7 @@ export class App {
   }
 
   nullGame() {
-    this.startedGame = false;
+    this.game.startedGame = false;
     this.words = [];
     this.currentWord = null;
     this.listSteps = [];
@@ -119,12 +113,11 @@ export class App {
     if (stars) {
       stars.innerHTML = '';
     }
-
     this.nullGame();
   }
 
   startGame() {
-    this.startedGame = true;
+    this.game.startedGame = true;
     let arr = this.page.currentPageNumber === 4 ? this.arrRepeatWords 
     : CARDS[this.page.currentCategory].listCards;
     this.words = arr.map((item, i) => {

@@ -1,4 +1,3 @@
-// import { CARDS } from './constants';
 export class Menu {
   constructor() {
     this.showMenu = false;
@@ -9,10 +8,9 @@ export class Menu {
     this.showMenu = arguments.length ? activation : !this.showMenu;
     if (this.showMenu) {
       document.body.classList.add('menu-activated');
-      document.onclick = (event) => {       
+      document.onclick = (event) => {
         if (event.clientX > WIDTH_MENU) {
           this.active(false);
-          // event.stopPropagation();
         }
       };
     } else {
@@ -26,7 +24,7 @@ export class Menu {
       elSelect = document.querySelectorAll('.nav__link')[elSelect];
     }
     document.querySelectorAll('.nav__link').forEach((itemMenu) => {
-        itemMenu.classList.remove('nav__link-active');
+      itemMenu.classList.remove('nav__link-active');
     });
     elSelect.classList.add('nav__link-active');
     this.active(false);
@@ -58,15 +56,15 @@ export class Menu {
       }
     });
     menuContainer.firstElementChild.after(...this.addItemMenu());
-
-
   }
 
   addItemMenu() {
     let arrItemMenu = app.CARDS.map((item, i) => {
       let itemMenu = document.createElement('li');
       itemMenu.classList.add('nav__item');
-      itemMenu.innerHTML = `<a id="${'category-' + i}" class="nav__link" href="#">${item.name}</a>`;
+      itemMenu.innerHTML = `<a id="${
+        'category-' + i
+      }" class="nav__link" href="#">${item.name}</a>`;
       return itemMenu;
     });
     return arrItemMenu;
