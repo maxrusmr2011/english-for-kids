@@ -1,0 +1,12 @@
+.layout-flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (max-width: 700px) {
+  .layout-flex {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}

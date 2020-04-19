@@ -1,0 +1,26 @@
+{
+  "extends": [
+    "airbnb/base"
+  ],
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "rules": {
+    "linebreak-style": [
+      "error",
+      "windows"
+    ],
+    "class-methods-use-this": [
+      "error",
+      {
+        "exceptMethods": [
+          "markSuccessCard",
+          "addStar",
+          "sound",
+          "addItemMenu"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,74 @@
+.switch {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  width: 109px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.switch-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.switch-label {
+  position: relative;
+  display: block;
+  height: inherit;
+  text-transform: uppercase;
+  background: $switch-color-train;
+  border-radius: 9px;
+  transition: 0.3s ease-out;
+  transition-property: opacity, background-color;
+  &:before,
+  &:after {
+    position: absolute;
+    top: 23%;
+    line-height: 1.2;
+    font-size: 18px;
+
+    transition: inherit;
+    color: $switch-color-text;
+  }
+  &:before {
+    content: attr(data-off);
+    right: 20px;
+  }
+  &:after {
+    content: attr(data-on);
+    left: 28px;
+    opacity: 0;
+  }
+}
+
+
+.switch-handle {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 15px;
+  height: 36px;
+  background: $switch-color-handle;
+  border-radius: 7px;
+  box-shadow: inset -1px 1px 3px rgba(0, 0, 0, 0.4);
+  transition: left 0.3s ease-out;
+  
+}
+
+.switch-input:checked {
+    ~ .switch-label {
+      background: $switch-color-play;
+      &:before {
+        opacity: 0;
+      }
+      &:after {
+        opacity: 1;
+      }
+    }
+    ~ .switch-handle {
+      left: 92px;
+    }
+}

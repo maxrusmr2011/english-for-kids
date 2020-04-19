@@ -1,0 +1,135 @@
+.page {
+  max-width: $main_width;
+  margin: 0 auto;
+
+  &__title {
+    text-align: center;
+    font-size: 40px;
+    font-weight: 700;
+  }
+  &__stars {
+    min-height: 40px;
+  }
+  &__start {
+    display: none;
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 0 25px;
+
+  }
+}
+
+.mode-play {
+  .page__start {
+    display: block;
+    text-align: center;
+    
+    button {
+      display: inline-block;
+      width: 100%;
+      border: 0;
+      border-radius: 30px;
+      padding: 10px;
+      background: $card-color-play;
+      font-size: 2rem;
+      font-weight: 700;
+      user-select: none;
+      cursor: pointer;
+      outline: none;
+      img {
+        display: none;
+      }
+    }
+    .start-game {
+      width: auto;
+      span {
+        display: none;
+      }
+      img {
+        display: block;
+        width: 35px;
+        height: 35px;
+      }
+    }
+  }
+
+}
+
+.page__stars {
+  display: flex;
+  justify-content: flex-end;
+  overflow: hidden;
+  padding: 0 20px;
+  img {
+    height: 40px;
+    width: 40px;
+    margin: 0 10px;
+    filter: drop-shadow(3px 3px 4px black);
+  }
+}
+
+
+.page__buttons {
+  
+  button {
+    margin: 10px 20px;
+    border: 0;
+    padding: 3px 5px;
+    border-radius: 5px;
+    background: orange;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+}
+
+table {
+  width: 100%;
+  margin-bottom: 40px;
+  border-collapse: collapse;
+  counter-reset: aaa;
+  tr {
+    &:first-child {
+      background: paleturquoise;
+      font-weight: 700;
+      color: blue;
+      td {
+        position: relative;
+        div:first-child {
+          margin-bottom: 16px;
+        }
+        div:nth-child(2) {
+          position: absolute;
+          bottom: 0;
+          left: 5px;
+        }
+      }
+    }
+    &:nth-of-type(n + 2) td:first-child:before {
+      counter-increment: aaa;
+      content:counter(aaa);
+    }
+    &:nth-child(even) {
+      background: rgba(0,0,0,0.1);
+    }
+  }
+}
+
+td {
+  border-right: 1px solid #999999;
+  word-wrap: break-word;
+}
+
+.btn {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  &:hover {
+    background: white;
+  }
+}
+
+@media (max-width: 480px) {
+  td {
+    font-size: 0.8rem;
+  }
+}

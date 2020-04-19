@@ -1,0 +1,24 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Lato", Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: rgb(239, 253, 224);
+  transition: 0.5s;
+}
+
+.menu-activated {
+  overflow: hidden;
+}
+
+.mode-play {
+  background: rgb(248, 240, 209);
+}
+
+ul {
+  list-style-type: none;
+}
