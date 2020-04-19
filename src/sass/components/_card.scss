@@ -15,6 +15,8 @@
     font-size: 2rem;
   }
 }
+
+
 .mode-play .card-category {
   background: $card-color-play;
   border: 3px solid darken($card-color-play, 10%);
@@ -44,7 +46,6 @@
     bottom: 0;
   }
 }
-
 
 .card-flip:hover .card__inner {
     transform: rotateY(180deg);
@@ -125,4 +126,37 @@
   img {
     height: 100%;
   }
+}
+
+@media (max-width: 700px) {
+  .card {
+    width: auto;
+    height: auto;
+    padding-top: 80%;
+    margin: 2vw 3vw;
+    .card__text {
+      font-size: 5vw;
+      padding: 3% 0;
+    }
+  }
+  .card-category img {
+    position: absolute;
+    top: 8%;
+    left: 20%;
+    margin: 0;
+    width: 26vw;
+    height: 26vw;
+    border: 5px solid white;
+  }
+  .card-word .card__inner {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .flipper {
+    bottom: 4%;
+    right: 4%;
+    width: 5vw;
+  }
+  
 }

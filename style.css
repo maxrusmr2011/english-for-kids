@@ -74,6 +74,9 @@ ul {
   background: orange;
   font-size: 2rem;
   font-weight: 700;
+  user-select: none;
+  cursor: pointer;
+  outline: none;
 }
 .mode-play .page__start button img {
   display: none;
@@ -440,6 +443,40 @@ td {
   height: 100%;
 }
 
+@media (max-width: 700px) {
+  .card {
+    width: auto;
+    height: auto;
+    padding-top: 80%;
+    margin: 2vw 3vw;
+  }
+  .card .card__text {
+    font-size: 5vw;
+    padding: 3% 0;
+  }
+
+  .card-category img {
+    position: absolute;
+    top: 8%;
+    left: 20%;
+    margin: 0;
+    width: 26vw;
+    height: 26vw;
+    border: 5px solid white;
+  }
+
+  .card-word .card__inner {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  .flipper {
+    bottom: 4%;
+    right: 4%;
+    width: 5vw;
+  }
+}
 #show {
   position: fixed;
   width: 100vw;
@@ -469,6 +506,13 @@ td {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+@media (max-width: 700px) {
+  .layout-flex {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
